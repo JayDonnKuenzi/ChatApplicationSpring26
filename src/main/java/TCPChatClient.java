@@ -15,6 +15,7 @@ import java.net.Socket;
  * @author JayDo
  */
 public class TCPChatClient {
+    //hello
     
     public static void main(String[] args) {
         try {
