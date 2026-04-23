@@ -1,4 +1,10 @@
-C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\chatApp\src\main\java\ChatApp.java
-C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\chatApp\src\main\java\ClientHandler.java
-C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\chatApp\src\main\java\TCPChatClient.java
-C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\chatApp\src\main\java\TCPServer.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\chatService\Message.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\chatService\PrivateMessage.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\chatService\PrivateMessageDAO.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\server_clientHandler\ClientHandler.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\server_clientHandler\TCPChatClient.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\server_clientHandler\TCPServer.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\utils\Config.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\Views\DashboardGUI.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\Views\Login.java
+C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\ChatApplicationSpring26\src\main\java\Views\SettingsGUI.java
