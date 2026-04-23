@@ -8,7 +8,7 @@ package chatService;
  *
  * @author lukew
  */
-public class chatDAO {
+public interface PrivateMessageDAO {
     
     void addMessage(Message message);
 }
