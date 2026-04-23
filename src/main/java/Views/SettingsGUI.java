@@ -4,19 +4,42 @@
  */
 package Views;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author lukew
  */
-public class Settings extends javax.swing.JFrame {
+public class SettingsGUI extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Settings.class.getName());
+    private JFrame previousFrame;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SettingsGUI.class.getName());
 
     /**
      * Creates new form Settings
      */
-    public Settings() {
+    public SettingsGUI() {
         initComponents();
+    }
+    
+    public SettingsGUI(JFrame previousFrame){
+        this.previousFrame = previousFrame;
+        initComponents();
+        
+        // Handle window closing
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // Show previous frame again
+                if (previousFrame != null) {
+                    previousFrame.setLocation(getLocation());
+                    previousFrame.setVisible(true);
+                }
+                dispose(); // close current frame
+            }
+        });
     }
 
     /**
@@ -66,7 +89,7 @@ public class Settings extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Settings().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new SettingsGUI().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
