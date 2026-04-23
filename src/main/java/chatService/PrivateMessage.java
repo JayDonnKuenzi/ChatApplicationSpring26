@@ -8,8 +8,6 @@ package chatService;
  *
  * @author lukew
  */
-public class chatService {
-    public String[] getAllMessages(){
-        
-    }
+public class PrivateMessage {
+    
 }
