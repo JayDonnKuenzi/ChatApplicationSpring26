@@ -1,4 +1,11 @@
-C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\chatApp\src\main\java\ChatApp.java
-C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\chatApp\src\main\java\ClientHandler.java
-C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\chatApp\src\main\java\TCPChatClient.java
-C:\Users\JayDo\OneDrive\Documents\NetBeansProjects\chatApp\src\main\java\TCPServer.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\models\Message.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\models\User.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\PrivateMessage\PrivateMessage.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\PrivateMessage\PrivateMessageDAO.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\server_clientHandler\ClientHandler.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\server_clientHandler\TCPChatClient.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\server_clientHandler\TCPServer.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\utils\Config.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\Views\DashboardGUI.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\Views\Login.java
+C:\Users\lukew\Desktop\Coding #1\NetBeansProjects\ChatApplicationSpring26\src\main\java\Views\Settings.java
