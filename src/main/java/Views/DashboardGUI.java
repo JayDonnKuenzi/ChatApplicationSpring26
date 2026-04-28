@@ -46,8 +46,11 @@ public class DashboardGUI extends javax.swing.JFrame {
         userService = new UserService();
         createUI();
         
-//        fillContactsPanel(loggedInUser);
-//        fillMessagePanel(loggedInUser);
+        listModelContacts = new DefaultListModel<>();
+        jListContacts.setModel(listModelContacts);
+        
+        fillContactsPanel(loggedInUser);
+        fillMessagePanel(loggedInUser);
     }
     
     public DashboardGUI(){
@@ -58,7 +61,7 @@ public class DashboardGUI extends javax.swing.JFrame {
     private void fillContactsPanel(User user){
         List<User> allUsers = userService.getUsers();
         for(User u: allUsers){
-            if(!u.equals(user)){
+            if(u.getUser_id() != user.getUser_id()){
                 listModelContacts.addElement(u.getName());
             }
         }
