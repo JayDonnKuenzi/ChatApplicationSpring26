@@ -4,6 +4,7 @@
  */
 package Views;
 
+import PrivateMessage.UserService;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -12,6 +13,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -31,23 +33,40 @@ import models.User;
  */
 public class DashboardGUI extends javax.swing.JFrame {
 
-    private DefaultListModel<String> listModel;
+    private DefaultListModel<String> listModelContacts;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardGUI.class.getName());
 
     private JScrollPane jScrollPane;
     private User user;
+    private UserService userService;
 
     //Sets the logged in user
     public DashboardGUI(User loggedInUser) {
         user = loggedInUser;
+        userService = new UserService();
         createUI();
+        
+        fillContactsPanel(loggedInUser);
+        fillMessagePanel(loggedInUser);
     }
     
     public DashboardGUI(){
         createUI();
     }
     
+    private void fillContactsPanel(User user){
+        List<User> allUsers = userService.getUsers();
+        for(User u: allUsers){
+            if(!u.equals(user)){
+                listModelContacts.addElement(u.getName());
+            }
+        }
+    }
+    
+    private void fillMessagePanel(User user){
         
+    }
+    
     private void createUI(){
         initComponents();
 
