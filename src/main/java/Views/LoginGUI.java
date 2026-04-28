@@ -5,6 +5,7 @@
 package Views;
 
 import PrivateMessage.UserService;
+import models.User;
 
 /**
  *
@@ -133,12 +134,21 @@ public class LoginGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-            
-            DashboardGUI chatgui = new DashboardGUI(userService.loginUser(tfUsername.getText(), tfPassword.getText()));
+            User user = userService.loginUser(tfUsername.getText(), tfPassword.getText());
+            if (user != null){
+                DashboardGUI chatgui = new DashboardGUI(user);
             chatgui.setLocation(this.getLocation());
             chatgui.setVisible(true);
+            this.setVisible(false);
+            } else{
+                System.out.println("Wrong password silly.");
+                tfPassword.setText("");
+                tfUsername.setText("");
+               
+            }
+            
+            
         } catch (Exception e) {
-            System.out.println("Wrong password silly.");
             e.printStackTrace();
         }
         

@@ -87,7 +87,24 @@ public class UserService implements UserDAO{
 
     @Override
     public void addUser(User user) {
-        
+        String sql = "INSERT INTO users (id, name, username, password) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = Config.getConnection().prepareStatement(sql);
+
+            preparedStatement.setInt(1, user.getUser_id());
+
+            preparedStatement.setString(2, user.getName());
+
+            preparedStatement.setString(3, user.getUsername());
+            
+            preparedStatement.setString(4, user.getPassword());
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("User added successfully!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
