@@ -60,6 +60,9 @@ public class DashboardGUI extends javax.swing.JFrame {
         for(User u: allUsers){
             if(!u.equals(user)){
                 listModelContacts.addElement(u.getName());
+                //new changes
+                
+                
             }
         }
     }
