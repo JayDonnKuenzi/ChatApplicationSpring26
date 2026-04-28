@@ -140,7 +140,11 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
-        // TODO add your handling code here:
+        SignUpGUI signUpGUI = new SignUpGUI(this);
+        signUpGUI.setLocation(this.getLocation());
+        signUpGUI.setVisible(true);
+
+        this.setVisible(false);
     }//GEN-LAST:event_btnSignupActionPerformed
 
     /**

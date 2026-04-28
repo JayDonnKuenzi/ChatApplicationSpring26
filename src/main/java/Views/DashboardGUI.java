@@ -54,6 +54,7 @@ public class DashboardGUI extends javax.swing.JFrame {
         createUI();
     }
     
+    //fill the contacts panel
     private void fillContactsPanel(User user){
         List<User> allUsers = userService.getUsers();
         for(User u: allUsers){

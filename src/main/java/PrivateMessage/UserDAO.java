@@ -13,7 +13,7 @@ import models.User;
  */
 public interface UserDAO {
     
-    void addUser();
+    void addUser(User user);
     List<User> getUsers();
     User getUserbyName(String name);
     User loginUser(String username, String password);
