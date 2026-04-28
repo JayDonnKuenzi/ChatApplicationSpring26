@@ -63,8 +63,8 @@ public class UserService implements UserDAO{
             
             PreparedStatement ps = Config.getConnection().prepareStatement(sql);
             
-            ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(0, username);
+            ps.setString(1, password);
             
             ResultSet rs = ps.executeQuery();
             

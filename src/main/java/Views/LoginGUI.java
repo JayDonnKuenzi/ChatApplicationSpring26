@@ -131,10 +131,15 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         try {
+            
             DashboardGUI chatgui = new DashboardGUI(userService.loginUser(tfUsername.getText(), tfPassword.getText()));
+            chatgui.setLocation(this.getLocation());
+            chatgui.setVisible(true);
         } catch (Exception e) {
             System.out.println("Wrong password silly.");
+            e.printStackTrace();
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
