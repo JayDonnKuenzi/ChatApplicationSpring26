@@ -46,8 +46,8 @@ public class DashboardGUI extends javax.swing.JFrame {
         userService = new UserService();
         createUI();
         
-        fillContactsPanel(loggedInUser);
-        fillMessagePanel(loggedInUser);
+//        fillContactsPanel(loggedInUser);
+//        fillMessagePanel(loggedInUser);
     }
     
     public DashboardGUI(){
