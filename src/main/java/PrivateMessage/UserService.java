@@ -54,5 +54,34 @@ public class UserService implements UserDAO{
         }
         return null;
     }
+
+    @Override
+    public User loginUser(String username, String password) {
+        User user = null;
+        try {
+            String sql = "select * from users WHERE username = ? AND password = ?";
+            
+            PreparedStatement ps = Config.getConnection().prepareStatement(sql);
+            
+            ps.setString(1, username);
+            ps.setString(2, password);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                username = rs.getString("username");
+                password = rs.getString("password");
+                
+                user = new User(id, name, username, password);
+                return user;
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Username or password is incorrect.");
+        }
+        return null;
+    }
     
 }

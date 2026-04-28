@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import models.User;
 
 /**
  *
@@ -34,11 +35,21 @@ public class DashboardGUI extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardGUI.class.getName());
 
     private JScrollPane jScrollPane;
+    private User user;
 
-    /**
-     * Creates new form DashboardGUI
-     */
-    public DashboardGUI() {
+    //Sets the logged in user
+    public DashboardGUI(User loggedInUser) {
+        
+        user = loggedInUser;
+        createUI();
+    }
+    
+    public DashboardGUI(){
+        createUI();
+    }
+    
+        
+    private void createUI(){
         initComponents();
 
         jPanelMessages.setLayout(new BoxLayout(jPanelMessages, BoxLayout.Y_AXIS));
@@ -101,6 +112,7 @@ public class DashboardGUI extends javax.swing.JFrame {
             jTextField.setText("");
 
             addMessage("This is the automatic response. jsa;fj kladsj dfk;ladsj fkladsj flaskd;kjf sdlaf klsaf Test 123", false);
+            //Add method for determining which message is from who.
         }
     }
 
@@ -143,6 +155,7 @@ public class DashboardGUI extends javax.swing.JFrame {
                 jPanelMessages.remove(row);
                 jPanelMessages.revalidate();
                 jPanelMessages.repaint();
+                //Add database removal of messages
             }
         });
 

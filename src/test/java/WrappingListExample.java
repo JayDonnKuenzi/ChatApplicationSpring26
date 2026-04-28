@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class WrappingListExample {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
+        
             String[] items = {
                 "Short text",
                 "This is a much longer text that should wrap into multiple lines in the list cell. " +
@@ -53,6 +53,6 @@ public class WrappingListExample {
             frame.add(new JScrollPane(list));
             frame.setSize(400, 300);
             frame.setVisible(true);
-        });
+        };
     }
-}
+
