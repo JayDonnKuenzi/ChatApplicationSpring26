@@ -39,7 +39,6 @@ public class DashboardGUI extends javax.swing.JFrame {
 
     //Sets the logged in user
     public DashboardGUI(User loggedInUser) {
-        
         user = loggedInUser;
         createUI();
     }
