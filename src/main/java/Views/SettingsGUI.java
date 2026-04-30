@@ -51,6 +51,7 @@ public class SettingsGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         inputPanel = new javax.swing.JPanel();
         tfHostAddress = new javax.swing.JTextField();
@@ -72,6 +73,9 @@ public class SettingsGUI extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
         jTextField11 = new javax.swing.JTextField();
+        jButtonLogout = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
@@ -200,6 +204,10 @@ public class SettingsGUI extends javax.swing.JFrame {
         jTextField11.setText("Change Username");
         jTextField11.setBorder(null);
 
+        jButtonLogout.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButtonLogout.setText("Logout");
+        jButtonLogout.addActionListener(this::jButtonLogoutActionPerformed);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -239,6 +247,10 @@ public class SettingsGUI extends javax.swing.JFrame {
                         .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonLogout)
+                .addGap(15, 15, 15))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +283,9 @@ public class SettingsGUI extends javax.swing.JFrame {
                             .addComponent(tfConfirmUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSaveUsername)))
-                .addGap(130, 130, 130))
+                .addGap(87, 87, 87)
+                .addComponent(jButtonLogout)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,6 +319,10 @@ public class SettingsGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSavePasswordActionPerformed
 
+    private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -332,7 +350,9 @@ public class SettingsGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel inputPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonConnect;
+    private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonSavePassword;
     private javax.swing.JButton jButtonSaveUsername;
     private javax.swing.JPanel jPanel4;

@@ -14,9 +14,6 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -78,24 +75,23 @@ public class DashboardGUI extends javax.swing.JFrame {
         if (!messages.isEmpty()) {
             int lastIndex = messages.size() - 1;
             if (lastIndex >= 50) {
-                for (int i = lastIndex; i > lastIndex - 50; i--) {
-                    String message = messages.get(i).getMessage();
+                for (int i = lastIndex - 50; i < lastIndex; i++) {
                     int senderId = messages.get(i).getSender_id();
                     boolean fromMe = false;
                     if (user.getUser_id() == senderId) {
                         fromMe = true;
                     }
-                    addMessage(message, fromMe);
+                    addMessage(messages.get(i), fromMe);
                 }
             } else {
-                for (int i = lastIndex; i >= 0; i--) {
+                for (int i = 0; i <= lastIndex; i++) {
                     String message = messages.get(i).getMessage();
                     int senderId = messages.get(i).getSender_id();
                     boolean fromMe = false;
                     if (user.getUser_id() == senderId) {
                         fromMe = true;
                     }
-                    addMessage(message, fromMe);
+                    addMessage(messages.get(i), fromMe);
                 }
             }
         }
@@ -160,18 +156,17 @@ public class DashboardGUI extends javax.swing.JFrame {
     private void sendMessage() {
         String text = jTextField.getText().trim();
         if (!text.isEmpty()) {
-            addMessage(text, true);
-            jTextField.setText("");
-
             User recipient = userService.getUserbyName(jListContacts.getSelectedValue());
             Message newMessage = new Message(user.getUser_id(), recipient.getUser_id(), text);
+            addMessage(newMessage, true);
+            jTextField.setText("");
+            
             privateMessage.addMessage(newMessage);
-
-            //Add method for determining which message is from who.
         }
     }
 
-    private void addMessage(String text, boolean fromMe) {
+    private void addMessage(Message message, boolean fromMe) {
+        String text = message.getMessage();
         JPanel row;
         if (fromMe) {
             row = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -204,9 +199,11 @@ public class DashboardGUI extends javax.swing.JFrame {
         textArea.setColumns(22);
 
         JButton deleteButton = new JButton("X");
+        deleteButton.setActionCommand(String.valueOf(message.getMessage_id()));
         deleteButton.setMargin(new Insets(2, 6, 2, 6));
         deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                privateMessage.deleteMessage(privateMessage.getMessageFromId(Integer.parseInt(deleteButton.getActionCommand())));
                 jPanelMessages.remove(row);
                 jPanelMessages.revalidate();
                 jPanelMessages.repaint();
@@ -405,6 +402,7 @@ public class DashboardGUI extends javax.swing.JFrame {
     private void jListContactsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListContactsValueChanged
         // TODO add your handling code here:
         jPanelMessages.removeAll();
+        jPanelMessages.repaint();
         fillMessagePanel(user, jListContacts.getSelectedValue());
     }//GEN-LAST:event_jListContactsValueChanged
 
