@@ -4,6 +4,7 @@
  */
 package Views;
 
+import PrivateMessage.PrivateMessage;
 import PrivateMessage.UserService;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,6 +14,9 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -25,6 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import models.Message;
 import models.User;
 
 /**
@@ -39,39 +44,52 @@ public class DashboardGUI extends javax.swing.JFrame {
     private JScrollPane jScrollPane;
     private User user;
     private UserService userService;
+    private PrivateMessage privateMessage;
 
     //Sets the logged in user
     public DashboardGUI(User loggedInUser) {
         user = loggedInUser;
         userService = new UserService();
+        privateMessage = new PrivateMessage();
         createUI();
-        
+
         listModelContacts = new DefaultListModel<>();
         jListContacts.setModel(listModelContacts);
-        
+
         fillContactsPanel(loggedInUser);
-        fillMessagePanel(loggedInUser);
     }
-    
-    public DashboardGUI(){
+
+    public DashboardGUI() {
         createUI();
     }
-    
+
     //fill the contacts panel
-    private void fillContactsPanel(User user){
+    private void fillContactsPanel(User user) {
         List<User> allUsers = userService.getUsers();
-        for(User u: allUsers){
-            if(u.getUser_id() != user.getUser_id()){
+        for (User u : allUsers) {
+            if (u.getUser_id() != user.getUser_id()) {
                 listModelContacts.addElement(u.getName());
             }
         }
     }
-    
-    private void fillMessagePanel(User user){
-        
+
+    private void fillMessagePanel(User user, String recipientName) {
+        List<Message> messages = privateMessage.getMessageHistory(recipientName, user.getUser_id());
+        if (!messages.isEmpty()) {
+            int lastIndex = messages.size() - 1;
+            for (int i = lastIndex; i > lastIndex - 50; i--) {
+                String message = messages.get(i).getMessage();
+                int senderId = messages.get(i).getSender_id();
+                boolean fromMe = false;
+                if (user.getUser_id() == senderId) {
+                    fromMe = true;
+                }
+                addMessage(message, fromMe);
+            }
+        }
     }
-    
-    private void createUI(){
+
+    private void createUI() {
         initComponents();
 
         jPanelMessages.setLayout(new BoxLayout(jPanelMessages, BoxLayout.Y_AXIS));
@@ -133,7 +151,10 @@ public class DashboardGUI extends javax.swing.JFrame {
             addMessage(text, true);
             jTextField.setText("");
 
-            addMessage("This is the automatic response. jsa;fj kladsj dfk;ladsj fkladsj flaskd;kjf sdlaf klsaf Test 123", false);
+            User recipient = userService.getUserbyName(jListContacts.getSelectedValue());
+            Message newMessage = new Message(user.getUser_id(), recipient.getUser_id(), text);
+            privateMessage.addMessage(newMessage);
+
             //Add method for determining which message is from who.
         }
     }
@@ -234,6 +255,7 @@ public class DashboardGUI extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         jListContacts.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        jListContacts.addListSelectionListener(this::jListContactsValueChanged);
         jScrollPane7.setViewportView(jListContacts);
 
         jButtonSettings.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -367,6 +389,11 @@ public class DashboardGUI extends javax.swing.JFrame {
 
         this.setVisible(false);
     }//GEN-LAST:event_jButtonSettingsActionPerformed
+
+    private void jListContactsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListContactsValueChanged
+        // TODO add your handling code here:
+        fillMessagePanel(user, jListContacts.getSelectedValue());
+    }//GEN-LAST:event_jListContactsValueChanged
 
     /**
      * @param args the command line arguments

@@ -21,7 +21,7 @@ public class PrivateMessage implements PrivateMessageDAO{
 
     @Override
     public void addMessage(Message message) {
-        String sql = "INSERT INTO private_messages (sender_id, recipient_id, message, timestamp) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO private_messages (sender_id, recipient_id, message) VALUES (?, ?, ?)";
         
         try {
             PreparedStatement ps = Config.getConnection().prepareStatement(sql);
@@ -29,7 +29,6 @@ public class PrivateMessage implements PrivateMessageDAO{
             ps.setInt(1, message.getSender_id());
             ps.setInt(2, message.getRecipient_id());
             ps.setString(3, message.getMessage());
-            ps.setDate(4, message.getTimestamp());
             
             ps.executeUpdate();
 

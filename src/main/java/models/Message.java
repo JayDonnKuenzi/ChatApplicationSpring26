@@ -5,6 +5,7 @@
 package models;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -21,11 +22,10 @@ public class Message {
     public Message() {
     }
 
-    public Message(int sender_id, int recipient_id, String message, Date timestamp) {
+    public Message(int sender_id, int recipient_id, String message) {
         this.sender_id = sender_id;
         this.recipient_id = recipient_id;
         this.message = message;
-        this.timestamp = timestamp;
     }
     
 
