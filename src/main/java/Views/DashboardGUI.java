@@ -77,14 +77,26 @@ public class DashboardGUI extends javax.swing.JFrame {
         List<Message> messages = privateMessage.getMessageHistory(recipientName, user.getUser_id());
         if (!messages.isEmpty()) {
             int lastIndex = messages.size() - 1;
-            for (int i = lastIndex; i > lastIndex - 50; i--) {
-                String message = messages.get(i).getMessage();
-                int senderId = messages.get(i).getSender_id();
-                boolean fromMe = false;
-                if (user.getUser_id() == senderId) {
-                    fromMe = true;
+            if (lastIndex >= 50) {
+                for (int i = lastIndex; i > lastIndex - 50; i--) {
+                    String message = messages.get(i).getMessage();
+                    int senderId = messages.get(i).getSender_id();
+                    boolean fromMe = false;
+                    if (user.getUser_id() == senderId) {
+                        fromMe = true;
+                    }
+                    addMessage(message, fromMe);
                 }
-                addMessage(message, fromMe);
+            } else {
+                for (int i = lastIndex; i >= 0; i--) {
+                    String message = messages.get(i).getMessage();
+                    int senderId = messages.get(i).getSender_id();
+                    boolean fromMe = false;
+                    if (user.getUser_id() == senderId) {
+                        fromMe = true;
+                    }
+                    addMessage(message, fromMe);
+                }
             }
         }
     }
@@ -392,6 +404,7 @@ public class DashboardGUI extends javax.swing.JFrame {
 
     private void jListContactsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListContactsValueChanged
         // TODO add your handling code here:
+        jPanelMessages.removeAll();
         fillMessagePanel(user, jListContacts.getSelectedValue());
     }//GEN-LAST:event_jListContactsValueChanged
 
