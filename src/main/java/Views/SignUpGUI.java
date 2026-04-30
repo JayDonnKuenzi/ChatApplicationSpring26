@@ -4,6 +4,7 @@
  */
 package Views;
 
+import PrivateMessage.UserService;
 import javax.swing.JFrame;
 import models.User;
 
@@ -16,14 +17,17 @@ public class SignUpGUI extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SignUpGUI.class.getName());
 
     private JFrame previousFrame;
+    private UserService userService;
     /**
      * Creates new form SignUpGUI
      */
     public SignUpGUI() {
         initComponents();
+        userService = new UserService();
     }
     public SignUpGUI(JFrame previousFrame){
         this.previousFrame = previousFrame;
+        userService = new UserService();
         initComponents();
         
         // Handle window closing
@@ -158,6 +162,15 @@ public class SignUpGUI extends javax.swing.JFrame {
         if (!(name.isEmpty() && username.isEmpty() && password.isEmpty() && confirmPassword.isEmpty())){
             if (password.equals(confirmPassword)) {
                 User user = new User(name, username, password);
+                userService.addUser(user);
+                previousFrame.setLocation(getLocation());
+                previousFrame.setVisible(true);
+                this.dispose();
+            } else {
+                tfName.setText("");
+                tfUsername.setText("");
+                tfPassword.setText("");
+                tfPasswordConfirm.setText("");
             }
         }
                 

@@ -12,10 +12,11 @@ import models.User;
  * @author lukew
  */
 public class LoginGUI extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginGUI.class.getName());
-    
+
     private UserService userService;
+
     /**
      * Creates new form Login
      */
@@ -132,26 +133,24 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         try {
             User user = userService.loginUser(tfUsername.getText(), tfPassword.getText());
-            if (user != null){
+            if (user != null) {
                 DashboardGUI chatgui = new DashboardGUI(user);
-            chatgui.setLocation(this.getLocation());
-            chatgui.setVisible(true);
-            this.setVisible(false);
-            } else{
+                chatgui.setLocation(this.getLocation());
+                chatgui.setVisible(true);
+                this.setVisible(false);
+            } else {
                 System.out.println("Wrong password silly.");
                 tfPassword.setText("");
-                tfUsername.setText("");
-               
+                tfUsername.setText(""); 
             }
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
