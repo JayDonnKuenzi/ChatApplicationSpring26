@@ -22,7 +22,7 @@ public class Message {
     public Message() {
     }
 
-    public Message(int sender_id, int recipient_id, String message) {
+    public Message(int sender_id, int recipient_id, String message, Date timestamp) {
         this.sender_id = sender_id;
         this.recipient_id = recipient_id;
         this.message = message;

@@ -14,7 +14,7 @@ import models.User;
  */
 public interface PrivateMessageDAO {
     
-    void addMessage(Message message);
+    int addMessage(Message message);
     void deleteMessage(Message message);
     List<Message> getAllMessages();
     List<Message> getMessageHistory(String name, int id);

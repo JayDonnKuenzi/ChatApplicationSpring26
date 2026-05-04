@@ -14,6 +14,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -155,14 +156,35 @@ public class DashboardGUI extends javax.swing.JFrame {
 
     private void sendMessage() {
         String text = jTextField.getText().trim();
-        if (!text.isEmpty()) {
-            User recipient = userService.getUserbyName(jListContacts.getSelectedValue());
-            Message newMessage = new Message(user.getUser_id(), recipient.getUser_id(), text);
-            addMessage(newMessage, true);
-            jTextField.setText("");
-            
-            privateMessage.addMessage(newMessage);
+        String selectedName = jListContacts.getSelectedValue();
+
+        if (text.isEmpty() || selectedName == null) {
+            return;
         }
+
+        User recipient = userService.getUserbyName(selectedName);
+        if (recipient == null) {
+            return;
+        }
+
+        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+
+        Message newMessage = new Message(
+                user.getUser_id(),
+                recipient.getUser_id(),
+                text,
+                sqlDate
+        );
+
+        int generatedId = privateMessage.addMessage(newMessage);
+        if (generatedId == -1) {
+            return;
+        }
+
+        newMessage.setMessage_id(generatedId);
+
+        addMessage(newMessage, true);
+        jTextField.setText("");
     }
 
     private void addMessage(Message message, boolean fromMe) {
