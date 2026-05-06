@@ -4,28 +4,43 @@
  */
 package Views;
 
+import PrivateMessage.UserService;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import models.User;
 
 /**
  *
  * @author lukew
  */
 public class SettingsGUI extends javax.swing.JFrame {
-    
+
     private JFrame previousFrame;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SettingsGUI.class.getName());
+    private UserService userService;
+    private User user;
 
     /**
      * Creates new form Settings
      */
     public SettingsGUI() {
         initComponents();
+        jTextField2.setFocusable(false);
+        jTextField2.setHighlighter(null);
+        
+        user = null;
+        userService = new UserService();
     }
-    
-    public SettingsGUI(JFrame previousFrame){
+
+    public SettingsGUI(JFrame previousFrame) {
         this.previousFrame = previousFrame;
         initComponents();
         
+        user = this.previousFrame.getUser();
+        
+        jTextField2.setFocusable(false);
+        jTextField2.setHighlighter(null);
+
         // Handle window closing
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -313,6 +328,16 @@ public class SettingsGUI extends javax.swing.JFrame {
 
     private void jButtonSaveUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveUsernameActionPerformed
         // TODO add your handling code here:
+        if(tfNewUsername.getText().equals(tfConfirmUsername.getText())){
+            userService.changeUsername(currentUsername, tfNewUsername.getText());
+        }else{
+            JOptionPane.showMessageDialog(null,
+                    "Username does not match confirmation!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                tfNewUsername.setText("");
+                tfConfirmUsername.setText("");
+        }
     }//GEN-LAST:event_jButtonSaveUsernameActionPerformed
 
     private void jButtonSavePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSavePasswordActionPerformed
@@ -321,6 +346,10 @@ public class SettingsGUI extends javax.swing.JFrame {
 
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         // TODO add your handling code here:
+        this.previousFrame = new LoginGUI();
+        previousFrame.setLocation(getLocation());
+        previousFrame.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
     /**

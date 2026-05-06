@@ -6,6 +6,7 @@ package Views;
 
 import PrivateMessage.UserService;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import models.User;
 
 /**
@@ -159,7 +160,7 @@ public class SignUpGUI extends javax.swing.JFrame {
         String password = tfPassword.getText();
         String confirmPassword = tfPasswordConfirm.getText();
         
-        if (!(name.isEmpty() && username.isEmpty() && password.isEmpty() && confirmPassword.isEmpty())){
+        if (!name.isEmpty() && !username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
             if (password.equals(confirmPassword)) {
                 User user = new User(name, username, password);
                 userService.addUser(user);
@@ -167,11 +168,24 @@ public class SignUpGUI extends javax.swing.JFrame {
                 previousFrame.setVisible(true);
                 this.dispose();
             } else {
+                JOptionPane.showMessageDialog(null,
+                    "Please ensure passwords match!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
                 tfName.setText("");
                 tfUsername.setText("");
                 tfPassword.setText("");
                 tfPasswordConfirm.setText("");
             }
+        }else{
+            JOptionPane.showMessageDialog(null,
+                    "Please enter valid inputs!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                tfName.setText("");
+                tfUsername.setText("");
+                tfPassword.setText("");
+                tfPasswordConfirm.setText("");
         }
                 
     }//GEN-LAST:event_btnSignupActionPerformed

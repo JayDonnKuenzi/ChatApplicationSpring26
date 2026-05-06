@@ -106,5 +106,39 @@ public class UserService implements UserDAO{
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public void changeUsername(String currentUsername, String newUsername) {
+        String sql = "UPDATE users SET username ? WHERE username = ?";
+        try {
+            PreparedStatement preparedStatement = Config.getConnection().prepareStatement(sql);
+
+            preparedStatement.setString(1, newUsername);
+            preparedStatement.setString(2, currentUsername);
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Username changed successfully!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void changePassword(String currentPassword, String newPassword) {
+        String sql = "UPDATE users SET password ? WHERE password = ?";
+        try {
+            PreparedStatement preparedStatement = Config.getConnection().prepareStatement(sql);
+
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setString(2, currentPassword);
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Password changed successfully!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
     
 }
