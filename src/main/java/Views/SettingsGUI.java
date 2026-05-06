@@ -32,11 +32,11 @@ public class SettingsGUI extends javax.swing.JFrame {
         userService = new UserService();
     }
 
-    public SettingsGUI(JFrame previousFrame) {
+    public SettingsGUI(JFrame previousFrame, User user) {
         this.previousFrame = previousFrame;
         initComponents();
         
-        user = this.previousFrame.getUser();
+        this.user = user;
         
         jTextField2.setFocusable(false);
         jTextField2.setHighlighter(null);
@@ -319,7 +319,7 @@ public class SettingsGUI extends javax.swing.JFrame {
 
     private void jButtonConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConnectActionPerformed
         // TODO add your handling code here:
-        SettingsGUI settingsUI = new SettingsGUI(this);
+        SettingsGUI settingsUI = new SettingsGUI(this, user);
         settingsUI.setLocation(this.getLocation());
         settingsUI.setVisible(true);
 
@@ -329,7 +329,7 @@ public class SettingsGUI extends javax.swing.JFrame {
     private void jButtonSaveUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveUsernameActionPerformed
         // TODO add your handling code here:
         if(tfNewUsername.getText().equals(tfConfirmUsername.getText())){
-            userService.changeUsername(currentUsername, tfNewUsername.getText());
+            userService.changeUsername(user.getUsername(), tfNewUsername.getText());
         }else{
             JOptionPane.showMessageDialog(null,
                     "Username does not match confirmation!",

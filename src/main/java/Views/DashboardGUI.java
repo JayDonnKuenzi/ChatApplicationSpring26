@@ -41,6 +41,10 @@ public class DashboardGUI extends javax.swing.JFrame {
 
     private JScrollPane jScrollPane;
     private User user;
+
+    public User getUser() {
+        return user;
+    }
     private UserService userService;
     private PrivateMessage privateMessage;
     private ClientConnection clientConnection;
@@ -420,7 +424,7 @@ public class DashboardGUI extends javax.swing.JFrame {
 
     private void jButtonSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSettingsActionPerformed
         // TODO add your handling code here:
-        SettingsGUI settingsUI = new SettingsGUI(this);
+        SettingsGUI settingsUI = new SettingsGUI(this, user);
         settingsUI.setLocation(this.getLocation());
         settingsUI.setVisible(true);
 
