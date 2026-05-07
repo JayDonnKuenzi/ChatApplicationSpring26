@@ -14,7 +14,7 @@ import models.User;
  */
 public interface UserDAO {
     
-    void addUser(User user);
+    void addUser(User user) throws SQLIntegrityConstraintViolationException;
     List<User> getUsers();
     User getUserbyName(String name);
     User loginUser(String username, String password);

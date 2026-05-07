@@ -87,7 +87,7 @@ public class UserService implements UserDAO{
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws SQLIntegrityConstraintViolationException{
         String sql = "INSERT INTO users (id, name, username, password) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = Config.getConnection().prepareStatement(sql);
@@ -103,7 +103,9 @@ public class UserService implements UserDAO{
             preparedStatement.executeUpdate();
 
             System.out.println("User added successfully!");
-        } catch (SQLException ex) {
+        }catch (SQLIntegrityConstraintViolationException ex){
+            throw ex;
+        }catch (SQLException ex) {
             ex.printStackTrace();
         }
     }

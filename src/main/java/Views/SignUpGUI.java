@@ -5,6 +5,7 @@
 package Views;
 
 import PrivateMessage.UserService;
+import java.sql.SQLIntegrityConstraintViolationException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import models.User;
@@ -14,11 +15,12 @@ import models.User;
  * @author lukew
  */
 public class SignUpGUI extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SignUpGUI.class.getName());
 
     private JFrame previousFrame;
     private UserService userService;
+
     /**
      * Creates new form SignUpGUI
      */
@@ -26,11 +28,12 @@ public class SignUpGUI extends javax.swing.JFrame {
         initComponents();
         userService = new UserService();
     }
-    public SignUpGUI(JFrame previousFrame){
+
+    public SignUpGUI(JFrame previousFrame) {
         this.previousFrame = previousFrame;
         userService = new UserService();
         initComponents();
-        
+
         // Handle window closing
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -156,38 +159,49 @@ public class SignUpGUI extends javax.swing.JFrame {
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         String name = tfName.getText();
-        String username = tfUsername.getText();
-        String password = tfPassword.getText();
-        String confirmPassword = tfPasswordConfirm.getText();
-        
-        if (!name.isEmpty() && !username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
+        String username = tfUsername.getText().strip();
+        String password = tfPassword.getText().strip();
+        String confirmPassword = tfPasswordConfirm.getText().strip();
+
+        if (!name.isEmpty() && !username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password.equals(confirmPassword)) {
                 User user = new User(name, username, password);
-                userService.addUser(user);
-                previousFrame.setLocation(getLocation());
-                previousFrame.setVisible(true);
-                this.dispose();
+                try {
+                    userService.addUser(user);
+                    previousFrame.setLocation(getLocation());
+                    previousFrame.setVisible(true);
+                    this.dispose();
+                } catch (SQLIntegrityConstraintViolationException ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Name or Username already in use!",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    tfName.setText("");
+                    tfUsername.setText("");
+                    tfPassword.setText("");
+                    tfPasswordConfirm.setText("");
+                }
             } else {
                 JOptionPane.showMessageDialog(null,
-                    "Please ensure passwords match!",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                        "Please ensure passwords match!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 tfName.setText("");
                 tfUsername.setText("");
                 tfPassword.setText("");
                 tfPasswordConfirm.setText("");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null,
                     "Please enter valid inputs!",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-                tfName.setText("");
-                tfUsername.setText("");
-                tfPassword.setText("");
-                tfPasswordConfirm.setText("");
+            tfName.setText("");
+            tfUsername.setText("");
+            tfPassword.setText("");
+            tfPasswordConfirm.setText("");
         }
-                
+
     }//GEN-LAST:event_btnSignupActionPerformed
 
     private void tfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsernameActionPerformed
