@@ -21,6 +21,7 @@ public class LoginGUI extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    //Constructor for initializing variables
     public LoginGUI() {
         initComponents();
         userService = new UserService();
@@ -132,10 +133,10 @@ public class LoginGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //method for handling when login is pressed
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
+        
+        //checking whether the correct information was entered in
         try {
             User user = userService.loginUser(tfUsername.getText(), tfPassword.getText());
             if (user != null) {
@@ -157,8 +158,9 @@ public class LoginGUI extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    //method for handling when signup button is pressed
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
+        //code for sending user to a sign up GUI
         SignUpGUI signUpGUI = new SignUpGUI(this);
         signUpGUI.setLocation(this.getLocation());
         signUpGUI.setVisible(true);

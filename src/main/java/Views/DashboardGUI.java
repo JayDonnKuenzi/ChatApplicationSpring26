@@ -65,7 +65,7 @@ public class DashboardGUI extends javax.swing.JFrame {
         fillContactsPanel(loggedInUser);
         clientConnection.receiveMsg();
     }
-
+    //constructor for running the GUI
     public DashboardGUI() {
         createUI();
         
@@ -81,7 +81,7 @@ public class DashboardGUI extends javax.swing.JFrame {
             }
         }
     }
-
+    //fill the message panel
     private void fillMessagePanel(User user, String recipientName) {
         List<Message> messages = privateMessage.getMessageHistory(recipientName, user.getUser_id());
         if (!messages.isEmpty()) {
@@ -108,7 +108,8 @@ public class DashboardGUI extends javax.swing.JFrame {
             }
         }
     }
-
+    
+    //Create the UI for the dashboard
     private void createUI() {
         initComponents();
 
@@ -147,6 +148,8 @@ public class DashboardGUI extends javax.swing.JFrame {
 //        jScrollPane = new JScrollPane(jPanelMessages);
 //        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //        this.add(jScrollPane, BorderLayout.CENTER);
+
+        //action listener for send button
         jButtonSend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,6 +157,7 @@ public class DashboardGUI extends javax.swing.JFrame {
             }
         });
 
+        //action listener for when Enter is pressed
         jTextField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -164,7 +168,8 @@ public class DashboardGUI extends javax.swing.JFrame {
         jTextField2.setFocusable(false);
         jTextField4.setFocusable(false);
     }
-
+    
+    //method for sending a message out
     public void sendMessage() {
         String text = jTextField.getText().trim();
         String selectedName = jListContacts.getSelectedValue();
@@ -199,6 +204,8 @@ public class DashboardGUI extends javax.swing.JFrame {
         
     }
 
+    //method for adding a message to the message panel
+    //determines whether it comes from the user or the other person
     public void addMessage(Message message, boolean fromMe) {
         String text = message.getMessage();
         JPanel row;
@@ -232,6 +239,7 @@ public class DashboardGUI extends javax.swing.JFrame {
         textArea.setFont(new Font("SansSerif", Font.PLAIN, 14));
         textArea.setColumns(22);
 
+        //code for making X buttons to delete messages
         JButton deleteButton = new JButton("X");
         deleteButton.setActionCommand(String.valueOf(message.getMessage_id()));
         deleteButton.setMargin(new Insets(2, 6, 2, 6));
@@ -257,7 +265,7 @@ public class DashboardGUI extends javax.swing.JFrame {
         scroll();
 
     }
-
+    //method for automatically scrolling the message panel when a message is sent or received
     public void scroll(){
         jPanelMessages.revalidate();
         SwingUtilities.invokeLater(new Runnable() {
@@ -428,7 +436,7 @@ public class DashboardGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //method for handling when settings button is pressed
     private void jButtonSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSettingsActionPerformed
         // TODO add your handling code here:
         SettingsGUI settingsUI = new SettingsGUI(this, user);
@@ -437,14 +445,14 @@ public class DashboardGUI extends javax.swing.JFrame {
 
         this.setVisible(false);
     }//GEN-LAST:event_jButtonSettingsActionPerformed
-
+    //method for handling when the value of the contact list changes
     private void jListContactsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListContactsValueChanged
         // TODO add your handling code here:
         jPanelMessages.removeAll();
         jPanelMessages.repaint();
         fillMessagePanel(user, jListContacts.getSelectedValue());
     }//GEN-LAST:event_jListContactsValueChanged
-
+    
     private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSendActionPerformed
@@ -493,7 +501,7 @@ public class DashboardGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
-
+    //method for getting the selected contact
     public String getSelectedContact(){
         return jListContacts.getSelectedValue();
     }

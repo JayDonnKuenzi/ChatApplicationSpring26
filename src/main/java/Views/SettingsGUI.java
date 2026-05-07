@@ -24,6 +24,7 @@ public class SettingsGUI extends javax.swing.JFrame {
     /**
      * Creates new form Settings
      */
+    //constructor for initializing variables
     public SettingsGUI() {
         initComponents();
         jTextField2.setFocusable(false);
@@ -32,7 +33,7 @@ public class SettingsGUI extends javax.swing.JFrame {
         user = null;
         userService = new UserService();
     }
-
+    //constructor to accept the previous frame
     public SettingsGUI(JFrame previousFrame, User user) {
         this.previousFrame = previousFrame;
         initComponents();
@@ -257,7 +258,7 @@ public class SettingsGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //method for changing the username of a user
     private void jButtonSaveUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveUsernameActionPerformed
         // TODO add your handling code here:
         if (tfNewUsername.getText().equals(tfConfirmUsername.getText())) {
@@ -280,7 +281,7 @@ public class SettingsGUI extends javax.swing.JFrame {
             tfConfirmUsername.setText("");
         }
     }//GEN-LAST:event_jButtonSaveUsernameActionPerformed
-
+    //method for changing the password for a user
     private void jButtonSavePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSavePasswordActionPerformed
         // TODO add your handling code here:
         if (tfNewPassword.getText().equals(tfConfirmPassword.getText())) {
@@ -296,9 +297,8 @@ public class SettingsGUI extends javax.swing.JFrame {
             tfConfirmPassword.setText("");
         }
     }//GEN-LAST:event_jButtonSavePasswordActionPerformed
-
+    //method for logging out the current user
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
-        // TODO add your handling code here:
         this.previousFrame = new LoginGUI();
         previousFrame.setLocation(getLocation());
         previousFrame.setVisible(true);

@@ -24,11 +24,12 @@ public class SignUpGUI extends javax.swing.JFrame {
     /**
      * Creates new form SignUpGUI
      */
+    //constructor for initializing variables
     public SignUpGUI() {
         initComponents();
         userService = new UserService();
     }
-
+    //constructor to accept the previous frame for closing
     public SignUpGUI(JFrame previousFrame) {
         this.previousFrame = previousFrame;
         userService = new UserService();
@@ -156,13 +157,13 @@ public class SignUpGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //method for handling when sign up button is pressed
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         String name = tfName.getText();
         String username = tfUsername.getText().strip();
         String password = tfPassword.getText().strip();
         String confirmPassword = tfPasswordConfirm.getText().strip();
-
+        //make sure fields are not empty or wrong
         if (!name.isEmpty() && !username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password.equals(confirmPassword)) {
                 User user = new User(name, username, password);
