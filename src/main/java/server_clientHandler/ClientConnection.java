@@ -51,7 +51,7 @@ public class ClientConnection {
         }
     }
 
-    // START LISTENING THREAD
+    // method to receive message
     public void receiveMsg() {
         Thread t = new Thread(() -> {
             try {
