@@ -1,11 +1,10 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * click nbfs://nbhost/systemfilesystem/templates/licenses/license-default.txt to change this license
+ * click nbfs://nbhost/systemfilesystem/templates/classes/class.java to edit this template
  */
 package PrivateMessage;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +23,7 @@ public class PrivateMessage implements PrivateMessageDAO, Serializable {
 
     @Override
     public int addMessage(Message message) {
+        // insert a new message into the database
         String sql = "INSERT INTO private_messages (sender_id, recipient_id, message) VALUES (?, ?, ?)";
 
         try (
@@ -35,6 +35,7 @@ public class PrivateMessage implements PrivateMessageDAO, Serializable {
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
+                // return generated id
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
                         return rs.getInt(1);
@@ -51,6 +52,7 @@ public class PrivateMessage implements PrivateMessageDAO, Serializable {
 
     @Override
     public void deleteMessage(Message message) {
+        // delete a message by id
         String sql = "DELETE FROM private_messages WHERE id = ?";
 
         try {
@@ -67,6 +69,7 @@ public class PrivateMessage implements PrivateMessageDAO, Serializable {
 
     @Override
     public List<Message> getAllMessages() {
+        // retrieve all messages from the database
         List<Message> messages = new ArrayList<>();
         try {
 
@@ -96,6 +99,7 @@ public class PrivateMessage implements PrivateMessageDAO, Serializable {
 
     @Override
     public List<Message> getMessageHistory(String name, int id) {
+        // retrieve message history between two users
         UserService userservice = new UserService();
         List<Message> messages = new ArrayList<>();
 
@@ -135,6 +139,7 @@ public class PrivateMessage implements PrivateMessageDAO, Serializable {
 
     @Override
     public Message getMessageFromId(int id) {
+        // find a message by id
         List<Message> messages = getAllMessages();
 
         for (Message message : messages) {
