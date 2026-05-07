@@ -254,6 +254,11 @@ public class DashboardGUI extends javax.swing.JFrame {
         jPanelMessages.add(row);
         jPanelMessages.add(Box.createVerticalStrut(8));
 
+        scroll();
+
+    }
+
+    public void scroll(){
         jPanelMessages.revalidate();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -262,9 +267,7 @@ public class DashboardGUI extends javax.swing.JFrame {
                 vertical.setValue(vertical.getMaximum());
             }
         });
-
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

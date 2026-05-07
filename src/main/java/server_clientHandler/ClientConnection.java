@@ -58,6 +58,7 @@ public class ClientConnection {
                     // Update GUI safely
                             }
                     dashboard.addMessage(incoming, false);
+                    dashboard.scroll();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
