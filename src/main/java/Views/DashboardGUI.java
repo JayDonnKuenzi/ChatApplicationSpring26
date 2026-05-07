@@ -48,6 +48,7 @@ public class DashboardGUI extends javax.swing.JFrame {
     private UserService userService;
     private PrivateMessage privateMessage;
     private ClientConnection clientConnection;
+    private List<User> allUsers;
 
     //Sets the logged in user
     public DashboardGUI(User loggedInUser) {
@@ -55,7 +56,7 @@ public class DashboardGUI extends javax.swing.JFrame {
         userService = new UserService();
         privateMessage = new PrivateMessage();
         clientConnection = new ClientConnection(this);
-
+        allUsers = null;
         createUI();
 
         listModelContacts = new DefaultListModel<>();
@@ -73,7 +74,7 @@ public class DashboardGUI extends javax.swing.JFrame {
 
     //fill the contacts panel
     private void fillContactsPanel(User user) {
-        List<User> allUsers = userService.getUsers();
+        allUsers = userService.getUsers();
         for (User u : allUsers) {
             if (u.getUser_id() != user.getUser_id()) {
                 listModelContacts.addElement(u.getName());
@@ -255,6 +256,7 @@ public class DashboardGUI extends javax.swing.JFrame {
 
         jPanelMessages.revalidate();
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 JScrollBar vertical = jScrollPane.getVerticalScrollBar();
                 vertical.setValue(vertical.getMaximum());
@@ -483,4 +485,8 @@ public class DashboardGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+    public String getSelectedContact(){
+        return jListContacts.getSelectedValue();
+    }
 }
