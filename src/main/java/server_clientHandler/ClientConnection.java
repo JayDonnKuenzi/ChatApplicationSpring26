@@ -50,30 +50,51 @@ public class ClientConnection {
 
     // START LISTENING THREAD
     public void receiveMsg() {
-        Thread t = new Thread(() -> {
-            try {
-                while (true) {
-                    Message incoming = (Message) in.readObject();
-                    
-                    System.out.println(dashboard.getSelectedContact());
-                    System.out.println(userService.getUserbyName(dashboard.getSelectedContact()).getUser_id());
-                    System.out.println(incoming.getSender_id());
-                    //Receive message and check the selected value for if it is correct
-                    if (userService.getUserbyName(dashboard.getSelectedContact()).getUser_id() == incoming.getSender_id()){
-                        System.out.println("test print");
+    Thread t = new Thread(() -> {
+        try {
+            System.out.println("receive thread started");
+            while (true) {
+                System.out.println("waiting for object...");
+                Object obj = in.readObject();
+                System.out.println("object arrived: " + obj);
+
+                if (!(obj instanceof Message)) {
+                    System.out.println("Not a Message object: " + obj.getClass());
+                    continue;
+                }
+
+                Message incoming = (Message) obj;
+                System.out.println("message text: " + incoming.getMessage());
+                System.out.println("sender id: " + incoming.getSender_id());
+
+                String selected = dashboard.getSelectedContact();
+                System.out.println("selected contact: " + selected);
+
+                if (selected == null) {
+                    System.out.println("selected contact is null");
+                    continue;
+                }
+
+                User selectedUser = userService.getUserbyName(selected);
+                if (selectedUser == null) {
+                    System.out.println("selected user not found");
+                    continue;
+                }
+
+                if (selectedUser.getUser_id() == incoming.getSender_id()) {
+                    javax.swing.SwingUtilities.invokeLater(() -> {
                         dashboard.addMessage(incoming, false);
                         dashboard.scroll();
-                    } else {
-                        continue;
-                    }
-                    
-                    
+                    });
+                } else {
+                    System.out.println("message received but filtered out");
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
-        });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    });
 
-        t.start();
-    }
+    t.start();
+}
 }
