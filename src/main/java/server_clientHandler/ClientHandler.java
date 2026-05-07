@@ -57,7 +57,7 @@ public class ClientHandler implements Runnable {
                     }
                 }
                 
-                // Broadcast to all other clients
+               
                 sendToClient(recipient_name, msg);
             }
         } catch (Exception e) {
@@ -71,6 +71,7 @@ public class ClientHandler implements Runnable {
                 try {
                     ch.out.writeObject(msg);
                     ch.out.flush();
+                    System.out.println("This is a test");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

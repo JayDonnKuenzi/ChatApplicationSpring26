@@ -41,6 +41,7 @@ public class ClientConnection {
             if (socket != null){
             out.writeObject(msg);
             out.flush();
+                System.out.println(msg.getMessage());
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -54,8 +55,12 @@ public class ClientConnection {
                 while (true) {
                     Message incoming = (Message) in.readObject();
                     
+                    System.out.println(dashboard.getSelectedContact());
+                    System.out.println(userService.getUserbyName(dashboard.getSelectedContact()).getUser_id());
+                    System.out.println(incoming.getSender_id());
                     //Receive message and check the selected value for if it is correct
                     if (userService.getUserbyName(dashboard.getSelectedContact()).getUser_id() == incoming.getSender_id()){
+                        System.out.println("test print");
                         dashboard.addMessage(incoming, false);
                         dashboard.scroll();
                     } else {
