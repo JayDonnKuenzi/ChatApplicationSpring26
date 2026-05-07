@@ -1,9 +1,11 @@
 package server_clientHandler;
 
+import PrivateMessage.UserService;
 import java.io.*;
 import java.net.Socket;
 import Views.DashboardGUI;
 import models.Message;
+import models.User;
 
 public class ClientConnection {
 
@@ -12,6 +14,7 @@ public class ClientConnection {
     private ObjectInputStream in;
     private DashboardGUI dashboard;
     private String name;
+    private UserService userService;
 
     public ClientConnection(DashboardGUI dashboardGUI) {
         try {
@@ -25,6 +28,7 @@ public class ClientConnection {
 
             this.dashboard = dashboardGUI;
             name = dashboard.getUser().getName();
+            userService = new UserService();
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -49,8 +53,10 @@ public class ClientConnection {
             try {
                 while (true) {
                     Message incoming = (Message) in.readObject();
-
+                    for (User user: userService.getUsers()){
+                    if (dashboard.getSelectedContact().equals(
                     // Update GUI safely
+                            }
                     dashboard.addMessage(incoming, false);
                 }
             } catch (Exception ex) {
