@@ -55,9 +55,9 @@ public class ClientConnection {
                     Message incoming = (Message) in.readObject();
                     
                     //Receive message and check the selected value for if it is correct
-                    if (userService.getUserbyName(dashboard.getSelectedContact()).getUser_id() == incoming.getRecipient_id()){
+                    if (userService.getUserbyName(dashboard.getSelectedContact()).getUser_id() == incoming.getSender_id()){
                         dashboard.addMessage(incoming, false);
-                    dashboard.scroll();
+                        dashboard.scroll();
                     } else {
                         continue;
                     }
