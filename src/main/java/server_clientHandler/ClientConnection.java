@@ -53,12 +53,16 @@ public class ClientConnection {
             try {
                 while (true) {
                     Message incoming = (Message) in.readObject();
-                    for (User user: userService.getUsers()){
-                    if (dashboard.getSelectedContact().equals(
-                    // Update GUI safely
-                            }
-                    dashboard.addMessage(incoming, false);
+                    
+                    //Receive message and check the selected value for if it is correct
+                    if (userService.getUserbyName(dashboard.getSelectedContact()).getUser_id() == incoming.getRecipient_id()){
+                        dashboard.addMessage(incoming, false);
                     dashboard.scroll();
+                    } else {
+                        continue;
+                    }
+                    
+                    
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
