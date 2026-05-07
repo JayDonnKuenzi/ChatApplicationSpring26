@@ -28,6 +28,7 @@ public class ClientHandler implements Runnable{
     
     public ClientHandler(Socket socket){
         try{
+            this.name = name;
             this.socket = socket;
             inFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             outToClient = new DataOutputStream(socket.getOutputStream());
@@ -36,17 +37,12 @@ public class ClientHandler implements Runnable{
         }
     }
     
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     @Override
     public void run() {
-        try{
-            this.outToClient.writeBytes("Enter your username:\n");
-            String msgFromClient = inFromClient.readLine();
-            
-            this.name = msgFromClient;
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
         while(true){
             try {
                 String msgFromClient = inFromClient.readLine();
@@ -55,7 +51,6 @@ public class ClientHandler implements Runnable{
                 e.printStackTrace();
             }
         }
-        
     }
 
     private void sendBroadcastMessage(String msgFromClient){
@@ -71,5 +66,5 @@ public class ClientHandler implements Runnable{
 
         }
     }
-    
+
 }

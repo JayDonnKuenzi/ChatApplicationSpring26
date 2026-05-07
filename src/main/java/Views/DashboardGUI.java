@@ -14,6 +14,11 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 import java.util.Date;
 import java.util.List;
 import javax.swing.Box;
@@ -30,6 +35,7 @@ import javax.swing.border.EmptyBorder;
 import models.Message;
 import models.User;
 
+
 /**
  *
  * @author JayDo
@@ -38,7 +44,7 @@ public class DashboardGUI extends javax.swing.JFrame {
 
     private DefaultListModel<String> listModelContacts;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardGUI.class.getName());
-
+            
     private JScrollPane jScrollPane;
     private User user;
     private UserService userService;
@@ -229,7 +235,7 @@ public class DashboardGUI extends javax.swing.JFrame {
                 jPanelMessages.remove(row);
                 jPanelMessages.revalidate();
                 jPanelMessages.repaint();
-                //Add database removal of messages
+                
             }
         });
 
@@ -448,14 +454,17 @@ public class DashboardGUI extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DashboardGUI().setVisible(true);
+                
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel inputPanel;
