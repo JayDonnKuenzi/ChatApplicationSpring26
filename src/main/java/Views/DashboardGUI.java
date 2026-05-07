@@ -325,6 +325,7 @@ public class DashboardGUI extends javax.swing.JFrame {
 
         jButtonSend.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jButtonSend.setText("SEND");
+        jButtonSend.addActionListener(this::jButtonSendActionPerformed);
 
         javax.swing.GroupLayout inputPanelLayout = new javax.swing.GroupLayout(inputPanel);
         inputPanel.setLayout(inputPanelLayout);
@@ -438,6 +439,10 @@ public class DashboardGUI extends javax.swing.JFrame {
         jPanelMessages.repaint();
         fillMessagePanel(user, jListContacts.getSelectedValue());
     }//GEN-LAST:event_jListContactsValueChanged
+
+    private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSendActionPerformed
 
     /**
      * @param args the command line arguments
