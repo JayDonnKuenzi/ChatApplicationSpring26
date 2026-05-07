@@ -32,8 +32,10 @@ public class ClientConnection {
     // SEND OBJECT TO SERVER
     public void sendMessage(Message msg) {
         try {
+            if (socket != null){
             out.writeObject(msg);
             out.flush();
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }

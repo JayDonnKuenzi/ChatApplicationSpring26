@@ -1,70 +1,60 @@
 package server_clientHandler;
 
-
-import server_clientHandler.TCPServer;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import models.Message;
+import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author JayDo
- */
-public class ClientHandler implements Runnable{
+public class ClientHandler implements Runnable {
 
     private Socket socket;
-    private BufferedReader inFromClient;
-    private DataOutputStream outToClient;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
     private String name;
-    
-    public ClientHandler(Socket socket){
-        try{
-            this.name = name;
+
+    public ClientHandler(Socket socket) {
+        try {
             this.socket = socket;
-            inFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            outToClient = new DataOutputStream(socket.getOutputStream());
-        }catch(IOException e){
+
+            // IMPORTANT: output stream first
+            this.out = new ObjectOutputStream(socket.getOutputStream());
+            this.out.flush();
+
+            this.in = new ObjectInputStream(socket.getInputStream());
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     @Override
     public void run() {
-        while(true){
-            try {
-                String msgFromClient = inFromClient.readLine();
-                sendBroadcastMessage(this.name.toUpperCase() + ": " + msgFromClient);
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            while (true) {
+                // Receive Message object from client
+                Message msg = (Message) in.readObject();
+
+                // Broadcast to all other clients
+                sendBroadcastMessage(msg);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private void sendBroadcastMessage(String msgFromClient){
-        for(int i = 0; i < TCPServer.allClients.size(); i++){
+    private void sendBroadcastMessage(Message msg) {
+        for (ClientHandler ch : TCPServer.allClients) {
             try {
-                ClientHandler ch = TCPServer.allClients.get(i);
-                if(!this.equals(ch)){
-                    ch.outToClient.writeBytes(msgFromClient+"\n");
+                if (ch != this) {
+                    ch.out.writeObject(msg);
+                    ch.out.flush();
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         }
     }
-
 }

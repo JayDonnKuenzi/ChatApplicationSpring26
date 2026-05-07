@@ -192,9 +192,10 @@ public class DashboardGUI extends javax.swing.JFrame {
         }
 
         newMessage.setMessage_id(generatedId);
-        clientConnection.sendMessage(newMessage);
         addMessage(newMessage, true);
         jTextField.setText("");
+        clientConnection.sendMessage(newMessage);
+        
     }
 
     public void addMessage(Message message, boolean fromMe) {
