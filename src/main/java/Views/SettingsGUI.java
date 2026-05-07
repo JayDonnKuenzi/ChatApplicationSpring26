@@ -342,6 +342,16 @@ public class SettingsGUI extends javax.swing.JFrame {
 
     private void jButtonSavePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSavePasswordActionPerformed
         // TODO add your handling code here:
+        if(tfNewPassword.getText().equals(tfConfirmPassword.getText())){
+            userService.changePassword(user.getPassword(), tfNewPassword.getText());
+        }else{
+            JOptionPane.showMessageDialog(null,
+                    "Password does not match confirmation!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                tfNewPassword.setText("");
+                tfConfirmPassword.setText("");
+        }
     }//GEN-LAST:event_jButtonSavePasswordActionPerformed
 
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
