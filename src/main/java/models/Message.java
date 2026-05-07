@@ -6,30 +6,35 @@ package models;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 /**
  *
  * @author lukew
  */
-public class Message implements Serializable{
-    
+public class Message implements Serializable {
+
+    // unique message id
     private int message_id;
+    // sender user id
     private int sender_id;
+    // recipient user id
     private int recipient_id;
+    // message text
     private String message;
+    // message timestamp
     private Date timestamp;
 
     public Message() {
     }
 
+    // constructor without message id
     public Message(int sender_id, int recipient_id, String message, Date timestamp) {
         this.sender_id = sender_id;
         this.recipient_id = recipient_id;
         this.message = message;
     }
-    
 
+    // constructor with message id
     public Message(int message_id, int sender_id, int recipient_id, String message, Date timestamp) {
         this.message_id = message_id;
         this.sender_id = sender_id;
@@ -77,6 +82,5 @@ public class Message implements Serializable{
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-    
-    
+
 }

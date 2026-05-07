@@ -9,21 +9,27 @@ package models;
  * @author lukew
  */
 public class User {
+
+    // user id from the database
     private int user_id;
+    // full name of the user
     private String name;
+    // login username
     private String username;
+    // login password
     private String password;
 
     public User() {
     }
 
+    // constructor without id
     public User(String name, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
     }
-    
 
+    // constructor with id
     public User(int user_id, String name, String username, String password) {
         this.user_id = user_id;
         this.name = name;
@@ -62,6 +68,5 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
 }
