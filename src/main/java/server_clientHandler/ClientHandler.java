@@ -14,6 +14,7 @@ public class ClientHandler implements Runnable {
     private String name;
     private String recipient_name;
     private UserService userService;
+    private int userId;
 
     public ClientHandler(Socket socket) {
         userService = new UserService();
@@ -26,6 +27,11 @@ public class ClientHandler implements Runnable {
 
             this.in = new ObjectInputStream(socket.getInputStream());
 
+            this.userId = (Integer) in.readObject();
+            System.out.println("Connected user id: " + userId);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,44 +45,28 @@ public class ClientHandler implements Runnable {
     public void run() {
         try {
             while (true) {
-                // Receive Message object from client
                 Message msg = (Message) in.readObject();
-
-                int sender = msg.getSender_id();
                 int recipient = msg.getRecipient_id();
-                for (User user : userService.getUsers()) {
-                        if (recipient == user.getUser_id()) {
-                            recipient_name = user.getName();
-                        }
-                    }
-                if (name == null) {
-                    for (User user : userService.getUsers()) {
-                        if (sender == user.getUser_id()) {
-                            name = user.getName();
-                        }
-                    }
-                }
-                
-               
-                sendToClient(recipient_name, msg);
+                sendToClient(recipient, msg);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void sendToClient(String targetName, Message msg) {
+    public void sendToClient(int targetUserId, Message msg) {
         for (ClientHandler ch : TCPServer.allClients) {
-            if (ch.name != null && ch.name.equalsIgnoreCase(targetName)) {
+            if (ch.userId == targetUserId) {
                 try {
                     ch.out.writeObject(msg);
                     ch.out.flush();
-                    System.out.println("This is a test");
+                    System.out.println("Sent message to user id: " + targetUserId);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 return;
             }
         }
+        System.out.println("Recipient not connected: " + targetUserId);
     }
 }
