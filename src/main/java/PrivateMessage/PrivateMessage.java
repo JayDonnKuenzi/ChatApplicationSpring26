@@ -4,6 +4,7 @@
  */
 package PrivateMessage;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import utils.Config;
  *
  * @author lukew
  */
-public class PrivateMessage implements PrivateMessageDAO {
+public class PrivateMessage implements PrivateMessageDAO, Serializable {
 
     @Override
     public int addMessage(Message message) {

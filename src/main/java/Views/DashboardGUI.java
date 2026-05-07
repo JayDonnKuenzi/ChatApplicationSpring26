@@ -14,12 +14,6 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.util.Date;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -34,7 +28,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import models.Message;
 import models.User;
-
+import server_clientHandler.ClientConnection;
 
 /**
  *
@@ -44,28 +38,34 @@ public class DashboardGUI extends javax.swing.JFrame {
 
     private DefaultListModel<String> listModelContacts;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardGUI.class.getName());
-            
+
     private JScrollPane jScrollPane;
     private User user;
     private UserService userService;
     private PrivateMessage privateMessage;
+    private ClientConnection clientConnection;
 
     //Sets the logged in user
     public DashboardGUI(User loggedInUser) {
         user = loggedInUser;
         userService = new UserService();
         privateMessage = new PrivateMessage();
+        clientConnection = new ClientConnection(this);
+
         createUI();
 
         listModelContacts = new DefaultListModel<>();
         jListContacts.setModel(listModelContacts);
 
         fillContactsPanel(loggedInUser);
+
     }
 
     public DashboardGUI() {
         createUI();
+
     }
+    
 
     //fill the contacts panel
     private void fillContactsPanel(User user) {
@@ -160,7 +160,7 @@ public class DashboardGUI extends javax.swing.JFrame {
         jTextField4.setFocusable(false);
     }
 
-    private void sendMessage() {
+    public void sendMessage() {
         String text = jTextField.getText().trim();
         String selectedName = jListContacts.getSelectedValue();
 
@@ -188,12 +188,12 @@ public class DashboardGUI extends javax.swing.JFrame {
         }
 
         newMessage.setMessage_id(generatedId);
-
+        clientConnection.sendMessage(newMessage);
         addMessage(newMessage, true);
         jTextField.setText("");
     }
 
-    private void addMessage(Message message, boolean fromMe) {
+    public void addMessage(Message message, boolean fromMe) {
         String text = message.getMessage();
         JPanel row;
         if (fromMe) {
@@ -235,7 +235,7 @@ public class DashboardGUI extends javax.swing.JFrame {
                 jPanelMessages.remove(row);
                 jPanelMessages.revalidate();
                 jPanelMessages.repaint();
-                
+
             }
         });
 
@@ -454,17 +454,16 @@ public class DashboardGUI extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DashboardGUI().setVisible(true);
-                
+
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel inputPanel;
