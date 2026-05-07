@@ -4,6 +4,7 @@
  */
 package PrivateMessage;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import models.User;
 
@@ -17,6 +18,6 @@ public interface UserDAO {
     List<User> getUsers();
     User getUserbyName(String name);
     User loginUser(String username, String password);
-    void changeUsername(String currentUsername, String newUsername);
-    void changePassword(String currentPassword, String newPassword);
+    void changeUsername(int id, String newUsername) throws SQLIntegrityConstraintViolationException;
+    void changePassword(int id, String newPassword);
 }

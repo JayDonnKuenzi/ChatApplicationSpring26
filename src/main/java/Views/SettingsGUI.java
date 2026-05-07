@@ -5,6 +5,7 @@
 package Views;
 
 import PrivateMessage.UserService;
+import java.sql.SQLIntegrityConstraintViolationException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import models.User;
@@ -27,7 +28,7 @@ public class SettingsGUI extends javax.swing.JFrame {
         initComponents();
         jTextField2.setFocusable(false);
         jTextField2.setHighlighter(null);
-        
+
         user = null;
         userService = new UserService();
     }
@@ -35,9 +36,10 @@ public class SettingsGUI extends javax.swing.JFrame {
     public SettingsGUI(JFrame previousFrame, User user) {
         this.previousFrame = previousFrame;
         initComponents();
-        
+
         this.user = user;
-        
+        userService = new UserService();
+
         jTextField2.setFocusable(false);
         jTextField2.setHighlighter(null);
 
@@ -328,29 +330,40 @@ public class SettingsGUI extends javax.swing.JFrame {
 
     private void jButtonSaveUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveUsernameActionPerformed
         // TODO add your handling code here:
-        if(tfNewUsername.getText().equals(tfConfirmUsername.getText())){
-            userService.changeUsername(user.getUsername(), tfNewUsername.getText());
-        }else{
+        if (tfNewUsername.getText().equals(tfConfirmUsername.getText())) {
+            try{
+                userService.changeUsername(user.getUser_id(), tfNewUsername.getText());
+            }catch (SQLIntegrityConstraintViolationException ex){
+                JOptionPane.showMessageDialog(null,
+                    "Username is already in use!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+            tfNewUsername.setText("");
+            tfConfirmUsername.setText("");
+        } else {
             JOptionPane.showMessageDialog(null,
                     "Username does not match confirmation!",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-                tfNewUsername.setText("");
-                tfConfirmUsername.setText("");
+            tfNewUsername.setText("");
+            tfConfirmUsername.setText("");
         }
     }//GEN-LAST:event_jButtonSaveUsernameActionPerformed
 
     private void jButtonSavePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSavePasswordActionPerformed
         // TODO add your handling code here:
-        if(tfNewPassword.getText().equals(tfConfirmPassword.getText())){
-            userService.changePassword(user.getPassword(), tfNewPassword.getText());
-        }else{
+        if (tfNewPassword.getText().equals(tfConfirmPassword.getText())) {
+            userService.changePassword(user.getUser_id(), tfNewPassword.getText());
+            tfNewPassword.setText("");
+            tfConfirmPassword.setText("");
+        } else {
             JOptionPane.showMessageDialog(null,
                     "Password does not match confirmation!",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-                tfNewPassword.setText("");
-                tfConfirmPassword.setText("");
+            tfNewPassword.setText("");
+            tfConfirmPassword.setText("");
         }
     }//GEN-LAST:event_jButtonSavePasswordActionPerformed
 

@@ -7,6 +7,7 @@ package PrivateMessage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -108,30 +109,32 @@ public class UserService implements UserDAO{
     }
 
     @Override
-    public void changeUsername(String currentUsername, String newUsername) {
-        String sql = "UPDATE users SET username ? WHERE username = ?";
+    public void changeUsername(int id, String newUsername) throws SQLIntegrityConstraintViolationException{
+        String sql = "UPDATE users SET username = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = Config.getConnection().prepareStatement(sql);
 
             preparedStatement.setString(1, newUsername);
-            preparedStatement.setString(2, currentUsername);
+            preparedStatement.setInt(2, id);
 
             preparedStatement.executeUpdate();
 
             System.out.println("Username changed successfully!");
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            throw ex;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
     @Override
-    public void changePassword(String currentPassword, String newPassword) {
-        String sql = "UPDATE users SET password ? WHERE password = ?";
+    public void changePassword(int id, String newPassword) {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = Config.getConnection().prepareStatement(sql);
 
             preparedStatement.setString(1, newPassword);
-            preparedStatement.setString(2, currentPassword);
+            preparedStatement.setInt(2, id);
 
             preparedStatement.executeUpdate();
 
