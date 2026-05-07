@@ -11,6 +11,7 @@ public class ClientConnection {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private DashboardGUI dashboard;
+    private String name;
 
     public ClientConnection(DashboardGUI dashboardGUI) {
         try {
@@ -23,6 +24,7 @@ public class ClientConnection {
             this.in = new ObjectInputStream(socket.getInputStream());
 
             this.dashboard = dashboardGUI;
+            name = dashboard.getUser().getName();
 
         } catch (IOException ex) {
             ex.printStackTrace();

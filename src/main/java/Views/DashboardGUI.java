@@ -62,12 +62,12 @@ public class DashboardGUI extends javax.swing.JFrame {
         jListContacts.setModel(listModelContacts);
 
         fillContactsPanel(loggedInUser);
-
+        clientConnection.receiveMsg();
     }
 
     public DashboardGUI() {
         createUI();
-
+        
     }
     
 

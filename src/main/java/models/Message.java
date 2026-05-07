@@ -4,6 +4,7 @@
  */
 package models;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  *
  * @author lukew
  */
-public class Message {
+public class Message implements Serializable{
     
     private int message_id;
     private int sender_id;
